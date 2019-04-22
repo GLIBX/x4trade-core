@@ -181,7 +181,7 @@ void database::pay_workers( share_type& budget )
 
       // Note: if there is a good chance that passed_time_count == day_count,
       //       for better performance, can avoid the 128 bit calculation by adding a check.
-      //       Since it's not the case on BitShares mainnet, we're not using a check here.
+      //       Since it's not the case on X4trade mainnet, we're not using a check here.
       fc::uint128 pay(requested_pay.value);
       pay *= passed_time_count;
       pay /= day_count;
