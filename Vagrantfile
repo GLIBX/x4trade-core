@@ -1,4 +1,4 @@
-# Configures Ubuntu 14.04 VM to be used with BitShares 2.0 (Graphene)
+# Configures Ubuntu 14.04 VM to be used with X4trade 2.0 (Graphene)
 # Downloads and builds all necessary software to run witness node and web GUI
 # Use with Vagrant (http://docs.vagrantup.com/v2/getting-started/index.html)
 # or just execute the shell script below.
@@ -40,7 +40,7 @@ if [ ! -d "tmp/boost_1_57_0" ]; then
 fi 
   
 if [ ! -d "graphene" ]; then
-  echo_msg "building bitshares graphene toolkit.."  
+  echo_msg "building x4trade graphene toolkit.."  
   git clone https://github.com/cryptonomex/graphene.git
   cd graphene
   git submodule update --init --recursive
@@ -97,8 +97,8 @@ Vagrant.configure(2) do |config|
     aws.region = "us-east-1"
     aws.ami = 'ami-018c9568'
     aws.instance_type = 'm1.small'
-    aws.security_groups = [ 'bitsharesxt' ]
-    override.vm.hostname = 'bitsharesxt-aws'
+    aws.security_groups = [ 'x4tradext' ]
+    override.vm.hostname = 'x4tradext-aws'
     override.ssh.username = 'ubuntu'
     override.ssh.private_key_path = ENV['VAGRANT_KEY_PATH']
     override.vm.box = 'dummy'

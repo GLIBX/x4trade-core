@@ -56,7 +56,7 @@ class elasticsearch_plugin_impl
       uint32_t _elasticsearch_bulk_sync = 100;
       bool _elasticsearch_visitor = false;
       std::string _elasticsearch_basic_auth = "";
-      std::string _elasticsearch_index_prefix = "bitshares-";
+      std::string _elasticsearch_index_prefix = "x4trade-";
       bool _elasticsearch_operation_object = false;
       uint32_t _elasticsearch_start_es_after_block = 0;
       CURL *curl; // curl handler
@@ -429,7 +429,7 @@ void elasticsearch_plugin::plugin_set_program_options(
          ("elasticsearch-bulk-sync", boost::program_options::value<uint32_t>(), "Number of bulk documents to index on a syncronied chain(100)")
          ("elasticsearch-visitor", boost::program_options::value<bool>(), "Use visitor to index additional data(slows down the replay(false))")
          ("elasticsearch-basic-auth", boost::program_options::value<std::string>(), "Pass basic auth to elasticsearch database('')")
-         ("elasticsearch-index-prefix", boost::program_options::value<std::string>(), "Add a prefix to the index(bitshares-)")
+         ("elasticsearch-index-prefix", boost::program_options::value<std::string>(), "Add a prefix to the index(x4trade-)")
          ("elasticsearch-operation-object", boost::program_options::value<bool>(), "Save operation as object(false)")
          ("elasticsearch-start-es-after-block", boost::program_options::value<uint32_t>(), "Start doing ES job after block(0)")
          ;

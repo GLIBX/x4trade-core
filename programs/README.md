@@ -1,4 +1,4 @@
-# BitShares Programs
+# X4trade Programs
 
 The bitshares programs are a collection of binaries to run the blockchain, interact with it or utilities.
 

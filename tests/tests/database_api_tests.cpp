@@ -122,7 +122,7 @@ BOOST_AUTO_TEST_CASE( get_potential_signatures_owner_and_active )
 }
 
 /// Testing get_potential_signatures and get_required_signatures for non-immediate owner authority issue.
-/// https://github.com/bitshares/bitshares-core/issues/584
+/// https://github.com/x4trade-org/x4trade-core/issues/584
 BOOST_AUTO_TEST_CASE( get_signatures_non_immediate_owner )
 {
    try {
@@ -186,10 +186,10 @@ BOOST_AUTO_TEST_CASE( get_signatures_non_immediate_owner )
       BOOST_CHECK( pub_keys.find( pub_key_active ) != pub_keys.end() );
       BOOST_CHECK( pub_keys.find( pub_key_owner ) != pub_keys.end() );
       BOOST_CHECK( pub_keys.find( a_pub_key_active ) != pub_keys.end() );
-      // doesn't work due to https://github.com/bitshares/bitshares-core/issues/584
+      // doesn't work due to https://github.com/x4trade-org/x4trade-core/issues/584
       BOOST_CHECK( pub_keys.find( a_pub_key_owner ) == pub_keys.end() );
       BOOST_CHECK( pub_keys.find( o_pub_key_active ) != pub_keys.end() );
-      // doesn't work due to https://github.com/bitshares/bitshares-core/issues/584
+      // doesn't work due to https://github.com/x4trade-org/x4trade-core/issues/584
       BOOST_CHECK( pub_keys.find( o_pub_key_owner ) == pub_keys.end() );
 
       // get required signatures
@@ -214,7 +214,7 @@ BOOST_AUTO_TEST_CASE( get_signatures_non_immediate_owner )
       // owner authorities should be ok
       BOOST_CHECK( pub_keys.find( pub_key_owner ) != pub_keys.end() );
       BOOST_CHECK( pub_keys.find( o_pub_key_active ) != pub_keys.end() );
-      // doesn't work due to https://github.com/bitshares/bitshares-core/issues/584
+      // doesn't work due to https://github.com/x4trade-org/x4trade-core/issues/584
       BOOST_CHECK( pub_keys.find( o_pub_key_owner ) == pub_keys.end() );
 
       // get required signatures
@@ -919,7 +919,7 @@ BOOST_AUTO_TEST_CASE(get_account_limit_orders)
    // 2. returned orders sorted by price desendingly
    // 3. the first order's sell price equal to specified
    cancel_limit_order(o); // NOTE 1: this canceled order was in scope of the
-                          // first created 50 orders, so with price 2.5 BTS/CNY
+                          // first created 50 orders, so with price 2.5 X4T/CNY
    results = db_api.get_account_limit_orders(seller.name, GRAPHENE_SYMBOL, "CNY", 50,
        limit_order_id_type(o.id), o.sell_price);
    BOOST_CHECK(results.size() == 50);
@@ -995,7 +995,7 @@ BOOST_AUTO_TEST_CASE(verify_account_authority)
 
          // bad keys
          flat_set<public_key_type> bad_public_keys;
-         bad_public_keys.emplace(public_key_type("BTS6MkMxwBjFWmcDjXRoJ4mW9Hd4LCSPwtv9tKG1qYW5Kgu4AhoZy"));
+         bad_public_keys.emplace(public_key_type("X4T6MkMxwBjFWmcDjXRoJ4mW9Hd4LCSPwtv9tKG1qYW5Kgu4AhoZy"));
          BOOST_CHECK(!db_api.verify_account_authority( "nathan", bad_public_keys));
 
       } FC_LOG_AND_RETHROW()

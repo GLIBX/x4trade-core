@@ -1,6 +1,6 @@
 *.a
 *.sw*
-
+*.vscode
 *.cmake
 CMakeCache.txt
 CMakeFiles
@@ -8,7 +8,7 @@ Makefile
 compile_commands.json
 moc_*
 *.moc
-
+genesis.json
 genesis.json
 hardfork.hpp
 
