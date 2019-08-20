@@ -672,7 +672,7 @@ class wallet_api
        */
       bool    load_wallet_file(string wallet_filename = "");
 
-      /** Quitting from BitShares wallet.
+      /** Quitting from X4trade wallet.
        * 
        * The current wallet will be closed.
        */

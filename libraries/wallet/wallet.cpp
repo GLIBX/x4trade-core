@@ -1529,7 +1529,7 @@ public:
 
       /*
        * Compatibility issue
-       * Current Date: 2018-09-28 More info: https://github.com/bitshares/bitshares-core/issues/1307
+       * Current Date: 2018-09-28 More info: https://github.com/x4trade-org/x4trade-core/issues/1307
        * Todo: remove the next 2 lines and change always_id to name in remote call after next hardfork
       */
       auto account = get_account(owner_account);
@@ -1883,7 +1883,7 @@ public:
       }
       /*
        * Compatibility issue
-       * Current Date: 2018-09-28 More info: https://github.com/bitshares/bitshares-core/issues/1307
+       * Current Date: 2018-09-28 More info: https://github.com/x4trade-org/x4trade-core/issues/1307
        * Todo: remove the next 2 lines and change always_id to name in remote call after next hardfork
       */
       auto account = get_account(account_name);
@@ -1940,7 +1940,7 @@ public:
 
       /*
        * Compatibility issue
-       * Current Date: 2018-09-28 More info: https://github.com/bitshares/bitshares-core/issues/1307
+       * Current Date: 2018-09-28 More info: https://github.com/x4trade-org/x4trade-core/issues/1307
        * Todo: remove the next 2 lines and change always_id to name in remote call after next hardfork
        */
       auto account = get_account(committee_member);
@@ -1981,7 +1981,7 @@ public:
 
       /*
        * Compatibility issue
-       * Current Date: 2018-09-28 More info: https://github.com/bitshares/bitshares-core/issues/1307
+       * Current Date: 2018-09-28 More info: https://github.com/x4trade-org/x4trade-core/issues/1307
        * Todo: remove the next 2 lines and change always_id to name in remote call after next hardfork
        */
       auto account = get_account(witness);
@@ -3163,7 +3163,7 @@ vector<asset> wallet_api::list_account_balances(const string& id)
 {
    /*
     * Compatibility issue
-    * Current Date: 2018-09-13 More info: https://github.com/bitshares/bitshares-core/issues/1307
+    * Current Date: 2018-09-13 More info: https://github.com/x4trade-org/x4trade-core/issues/1307
     * Todo: remove the next 2 lines and change always_id to id in remote call after next hardfork
     */
    auto account = get_account(id);
@@ -3261,7 +3261,7 @@ vector<operation_detail> wallet_api::get_account_history(string name, int limit)
 
    /*
     * Compatibility issue
-    * Current Date: 2018-09-14 More info: https://github.com/bitshares/bitshares-core/issues/1307
+    * Current Date: 2018-09-14 More info: https://github.com/x4trade-org/x4trade-core/issues/1307
     * Todo: remove the next 2 lines and change always_id to name in remote call after next hardfork
     */
    auto account = get_account(name);
@@ -3332,7 +3332,7 @@ vector<operation_detail> wallet_api::get_relative_account_history(
 
    /*
     * Compatibility issue
-    * Current Date: 2018-09-14 More info: https://github.com/bitshares/bitshares-core/issues/1307
+    * Current Date: 2018-09-14 More info: https://github.com/x4trade-org/x4trade-core/issues/1307
     * Todo: remove the next line and change always_id to name in remote call after next hardfork
     */
    auto always_id = my->account_id_to_string(account_id);
@@ -3377,7 +3377,7 @@ account_history_operation_detail wallet_api::get_account_history_by_operations(
 
     /*
      * Compatibility issue
-     * Current Date: 2018-09-14 More info: https://github.com/bitshares/bitshares-core/issues/1307
+     * Current Date: 2018-09-14 More info: https://github.com/x4trade-org/x4trade-core/issues/1307
      * Todo: remove the next line and change always_id to name in remote call after next hardfork
      */
      auto always_id = my->account_id_to_string(account_id);
