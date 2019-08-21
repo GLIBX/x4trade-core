@@ -167,6 +167,7 @@ void application_impl::reset_p2p_node(const fc::path& data_dir)
       vector<string> seeds = {
          "node-tokyo.x4trade.org:11010",
          "node-tokyo.x4trade.org:11015",
+         "ca-mtl-node.x4trade.org:11011",
 
          
       };
