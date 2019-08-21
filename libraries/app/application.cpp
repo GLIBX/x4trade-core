@@ -165,6 +165,9 @@ void application_impl::reset_p2p_node(const fc::path& data_dir)
    {
       // x4trade seednodes
       vector<string> seeds = {
+         "node-tokyo.x4trade.org:9090",
+         "node-tokyo.x4trade.org:11020",
+
          
       };
       for( const string& endpoint_string : seeds )
