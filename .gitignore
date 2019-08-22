@@ -8,8 +8,6 @@ Makefile
 compile_commands.json
 moc_*
 *.moc
-genesis.json
-genesis.json
 hardfork.hpp
 *.DS_Store
 libraries/utilities/git_revision.cpp
