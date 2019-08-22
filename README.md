@@ -36,7 +36,7 @@ We recommend building on Ubuntu 16.04 LTS (64-bit)
 **Build Script:**
 
     git clone https://github.com/x4trade-org/x4trade-core.git
-    cd bitshares-core
+    cd x4trade-core
     git checkout master # may substitute "master" with current release tag
     git submodule update --init --recursive
     cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo .
