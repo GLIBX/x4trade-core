@@ -168,6 +168,8 @@ void application_impl::reset_p2p_node(const fc::path& data_dir)
          "node-tokyo.x4trade.org:11010",
          "node-tokyo.x4trade.org:11015",
          "ca-mtl-node.x4trade.org:11011",
+         "node-asia-east.x4trade.org:11015",
+         "node-euro-west.x4trade.org:11010",
 
          
       };
