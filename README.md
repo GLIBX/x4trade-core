@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 X4trade Core
+=======
+X4T Core
+>>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
 ==============
 
 [Build Status](https://travis-ci.org/bitshares/bitshares-core/branches):
@@ -15,8 +19,13 @@ X4trade Core
 * [FAQ](#faq)
 * [License](#license)
 
+<<<<<<< HEAD
 X4trade Core is the X4trade blockchain implementation and command-line interface.
 The web wallet is [X4trade UI](https://github.com/bitshares/bitshares-ui).
+=======
+BitShares Core is the BitShares blockchain implementation and command-line interface.
+The web browser based wallet is [BitShares UI](https://github.com/bitshares/bitshares-ui).
+>>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
 
 Visit [x4trade.org](https://x4trade.org/) to learn about X4trade and join the community at [Telegram](https://t.me/x4trade/).
 
@@ -28,7 +37,7 @@ Build instructions and additional documentation are available in the
 
 We recommend building on Ubuntu 16.04 LTS (64-bit) 
 
-**Build Dependencies**:
+**Build Dependencies:**
 
     sudo apt-get update
     sudo apt-get install autoconf cmake make automake libtool git libboost-all-dev libssl-dev g++ libcurl4-openssl-dev
@@ -42,7 +51,7 @@ We recommend building on Ubuntu 16.04 LTS (64-bit)
     cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo .
     make
 
-**Upgrade Script** (prepend to the Build Script above if you built a prior release):
+**Upgrade Script:** (prepend to the Build Script above if you built a prior release):
 
     git remote set-url origin https://github.com/x4trade-org/x4trade-core.git
     git checkout master
@@ -52,7 +61,7 @@ We recommend building on Ubuntu 16.04 LTS (64-bit)
     git submodule sync --recursive
     git submodule update --init --recursive
 
-**NOTE:** Versions of [Boost](http://www.boost.org/) 1.57 through 1.69 are supported. Newer versions may work, but
+**NOTE:** Versions of [Boost](http://www.boost.org/) 1.58 through 1.69 are supported. Newer versions may work, but
 have not been tested. If your system came pre-installed with a version of Boost that you do not wish to use, you may
 manually build your preferred version and use it with X4trade by specifying it on the CMake command line.
 
@@ -91,6 +100,13 @@ Set your inital password:
 
     >>> set_password <PASSWORD>
     >>> unlock <PASSWORD>
+
+**IMPORTANT:** The cli_wallet or API interfaces to the witness node wouldn't be fully functional unless the witness node is fully synchronized with the blockchain. The cli_wallet command `info` will show result `head_block_age` which will tell you how far you are from the live current block of the blockchain.
+
+
+To check your current block:
+
+    >>> info
 
 To import your initial balance:
 

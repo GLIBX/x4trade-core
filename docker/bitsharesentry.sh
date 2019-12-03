@@ -6,6 +6,7 @@ VERSION=`cat /etc/x4trade/version`
 
 ## Supported Environmental Variables
 #
+<<<<<<< HEAD
 #   * $X4TRADED_SEED_NODES
 #   * $X4TRADED_RPC_ENDPOINT
 #   * $X4TRADED_PLUGINS
@@ -19,6 +20,22 @@ VERSION=`cat /etc/x4trade/version`
 #   * $X4TRADED_MAX_OPS_PER_ACCOUNT
 #   * $X4TRADED_ES_NODE_URL
 #   * $X4TRADED_TRUSTED_NODE
+=======
+#   * $BITSHARESD_SEED_NODES
+#   * $BITSHARESD_RPC_ENDPOINT
+#   * $BITSHARESD_PLUGINS
+#   * $BITSHARESD_REPLAY
+#   * $BITSHARESD_RESYNC
+#   * $BITSHARESD_P2P_ENDPOINT
+#   * $BITSHARESD_WITNESS_ID
+#   * $BITSHARESD_PRIVATE_KEY
+#   * $BITSHARESD_TRACK_ACCOUNTS
+#   * $BITSHARESD_PARTIAL_OPERATIONS
+#   * $BITSHARESD_MAX_OPS_PER_ACCOUNT
+#   * $BITSHARESD_ES_NODE_URL
+#   * $BITSHARESD_ES_START_AFTER_BLOCK
+#   * $BITSHARESD_TRUSTED_NODE
+>>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
 #
 
 ARGS=""
@@ -70,8 +87,17 @@ if [[ ! -z "$X4TRADED_ES_NODE_URL" ]]; then
     ARGS+=" --elasticsearch-node-url=${X4TRADED_ES_NODE_URL}"
 fi
 
+<<<<<<< HEAD
 if [[ ! -z "$X4TRADED_TRUSTED_NODE" ]]; then
     ARGS+=" --trusted-node=${X4TRADED_TRUSTED_NODE}"
+=======
+if [[ ! -z "$BITSHARESD_ES_START_AFTER_BLOCK" ]]; then
+    ARGS+=" --elasticsearch-start-es-after-block=${BITSHARESD_ES_START_AFTER_BLOCK}"
+fi
+
+if [[ ! -z "$BITSHARESD_TRUSTED_NODE" ]]; then
+    ARGS+=" --trusted-node=${BITSHARESD_TRUSTED_NODE}"
+>>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
 fi
 
 ## Link the x4trade config file into home

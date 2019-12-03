@@ -4,7 +4,11 @@
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
+<<<<<<< HEAD
  * 1. Any modified source or binaries are used only with the X4trade network.
+=======
+ * 1. Any modified source or binaries are used only with the X4Trade network.
+>>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
  *
  * 2. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
  *
@@ -18,8 +22,8 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-#include <graphene/chain/protocol/block.hpp>
-#include <graphene/chain/protocol/fee_schedule.hpp>
+#include <graphene/protocol/block.hpp>
+#include <graphene/protocol/fee_schedule.hpp>
 #include <graphene/chain/vesting_balance_object.hpp>
 #include <graphene/chain/withdraw_permission_object.hpp>
 #include <graphene/chain/proposal_object.hpp>
@@ -110,7 +114,7 @@ void class_processor::process_class( const static_variant< T... >* dummy )
    }
 }
 
-template<typename IsReflected=fc::false_type>
+template<typename IsReflected=std::false_type>
 struct if_reflected
 {
    template< typename T >
@@ -122,7 +126,7 @@ struct if_reflected
 };
 
 template<>
-struct if_reflected<fc::true_type>
+struct if_reflected<std::true_type>
 {
    template< typename T >
    static void process_class( class_processor* proc, const T* dummy )

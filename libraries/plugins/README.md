@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # X4trade Plugins
+=======
+# X4Trade Plugins
+>>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
 
 The bitshares plugins are a collection of tools that brings new functionality without the need of modifications in the consensus and more sensitive areas of the bitshares-core.
 
@@ -11,6 +15,7 @@ Plugins are optional to run by node operator according to their needs. However, 
 Folder                             | Name                     | Description                                                                 | Category       | Status        | SpaceID     
 -----------------------------------|--------------------------|-----------------------------------------------------------------------------|----------------|---------------|--------------|
 [account_history](account_history) | Account History          | Save account history data                                                   | History        | Stable        | 4
+[api_helper_indexes](api_helper_indexes) | API Helper Indexes | Provides some helper indexes used by various API calls                                                 | Database API   | Stable        | 
 [debug_witness](debug_witness)     | Debug Witness            | Run "what-if" tests                                                         | Debug          | Stable        |
 [delayed_node](delayed_node)       | Delayed Node             | Avoid forks by running a several times confirmed and delayed blockchain     | Business       | Stable        |
 [elasticsearch](elasticsearch)     | ElasticSearch Operations | Save account history data into elasticsearch database                       | History        | Experimental  | 6

@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 FROM phusion/baseimage:0.10.1
 MAINTAINER The x4trade decentralized organisation
+=======
+FROM phusion/baseimage:0.11
+MAINTAINER The bitshares decentralized organisation
+>>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
 
 ENV LANG=en_US.UTF-8
 RUN \
