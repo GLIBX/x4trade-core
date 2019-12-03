@@ -1,13 +1,3 @@
-
-# Defines X4trade library target.
-project( X4trade )
-cmake_minimum_required( VERSION 2.8.12 )
-
-set( BLOCKCHAIN_NAME "X4trade" )
-
-set( CLI_CLIENT_EXECUTABLE_NAME graphene_client )
-set( GUI_CLIENT_EXECUTABLE_NAME X4trade )
-
 # Defines X4Trade library target.
 cmake_minimum_required( VERSION 3.2 FATAL_ERROR )
 project( X4Trade LANGUAGES CXX C)
@@ -16,7 +6,6 @@ set( BLOCKCHAIN_NAME "X4Trade" )
 
 set( CLI_CLIENT_EXECUTABLE_NAME graphene_client )
 set( GUI_CLIENT_EXECUTABLE_NAME X4Trade )
-
 set( CUSTOM_URL_SCHEME "gcs" )
 set( INSTALLER_APP_ID "68ad7005-8eee-49c9-95ce-9eed97e5b347" )
 
@@ -42,10 +31,6 @@ elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 endif()
 
 list( APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules" )
-
-
-set(CMAKE_EXPORT_COMPILE_COMMANDS "ON")
-set(GRAPHENE_EGENESIS_JSON "${CMAKE_CURRENT_SOURCE_DIR}/libraries/egenesis/genesis.json" )
 
 include(CheckCCompilerFlag)
 include(Utils)
@@ -128,7 +113,6 @@ endif()
 # position independent code (PIC)
 add_definitions (-fPIC)
 
-
 set(CMAKE_EXPORT_COMPILE_COMMANDS "ON")
 set( GRAPHENE_EGENESIS_JSON "${CMAKE_CURRENT_SOURCE_DIR}/libraries/egenesis/genesis.json"
      CACHE STRING "Path to embedded genesis file" )
@@ -184,11 +168,7 @@ ENDIF()
 
 if( WIN32 )
 
-
-    message( STATUS "Configuring X4trade on WIN32")
-
     message( STATUS "Configuring X4Trade on WIN32")
-
     set( DB_VERSION 60 )
     set( BDB_STATIC_LIBS 1 )
 
@@ -226,21 +206,12 @@ else( WIN32 ) # Apple AND Linux
 
     if( APPLE )
         # Apple Specific Options Here
-
-        message( STATUS "Configuring X4trade on OS X" )
-        set( CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -std=c++11 -stdlib=libc++ -Wall" )
-    else( APPLE )
-        # Linux Specific Options Here
-        message( STATUS "Configuring X4trade on Linux" )
-        set( CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -std=c++11 -Wall" )
-
         message( STATUS "Configuring X4Trade on OS X" )
         set( CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -stdlib=libc++ -Wall" )
     else( APPLE )
         # Linux Specific Options Here
         message( STATUS "Configuring X4Trade on Linux" )
         set( CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -Wall" )
-
         if(USE_PROFILER)
             set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pg" )
         endif( USE_PROFILER )
@@ -276,11 +247,7 @@ else( WIN32 ) # Apple AND Linux
 
 endif( WIN32 )
 
-
-set(ENABLE_COVERAGE_TESTING FALSE CACHE BOOL "Build X4trade for code coverage analysis")
-
 set(ENABLE_COVERAGE_TESTING FALSE CACHE BOOL "Build X4Trade for code coverage analysis")
-
 
 if(ENABLE_COVERAGE_TESTING)
     SET(CMAKE_CXX_FLAGS "--coverage ${CMAKE_CXX_FLAGS}")
@@ -310,20 +277,6 @@ set(CPACK_PACKAGE_VERSION_MAJOR "${VERSION_MAJOR}")
 set(CPACK_PACKAGE_VERSION_MINOR "${VERSION_MINOR}")
 set(CPACK_PACKAGE_VERSION_PATCH "${VERSION_PATCH}")
 set(CPACK_PACKAGE_VERSION "${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}")
-
-set(CPACK_PACKAGE_DESCRIPTION "A client for the X4trade network")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A client for the X4trade network")
-set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.md")
-set(CPACK_PACKAGE_INSTALL_DIRECTORY "X4trade ${CPACK_PACKAGE_VERSION}")
-
-if(WIN32)
- SET(CPACK_GENERATOR "ZIP;NSIS")
- set(CPACK_PACKAGE_NAME "X4trade") # override above
- set(CPACK_NSIS_EXECUTABLES_DIRECTORY .)
- set(CPACK_NSIS_PACKAGE_NAME "X4trade v${CPACK_PACKAGE_VERSION}")
- set(CPACK_NSIS_DISPLAY_NAME "${CPACK_NSIS_PACKAGE_NAME}")
- set(CPACK_NSIS_DEFINES "  !define MUI_STARTMENUPAGE_DEFAULTFOLDER \\\"X4trade\\\"")
-
 set(CPACK_PACKAGE_DESCRIPTION "A client for the X4Trade network")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A client for the X4Trade network")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.md")
@@ -336,7 +289,6 @@ if(WIN32)
  set(CPACK_NSIS_PACKAGE_NAME "X4Trade v${CPACK_PACKAGE_VERSION}")
  set(CPACK_NSIS_DISPLAY_NAME "${CPACK_NSIS_PACKAGE_NAME}")
  set(CPACK_NSIS_DEFINES "  !define MUI_STARTMENUPAGE_DEFAULTFOLDER \\\"X4Trade\\\"")
-
  # it seems like windows zip files usually don't have a single directory inside them, unix tgz frequently do
  SET(CPACK_INCLUDE_TOPLEVEL_DIRECTORY 0)
 
