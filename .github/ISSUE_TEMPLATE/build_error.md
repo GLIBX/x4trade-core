@@ -1,6 +1,10 @@
 ---
 name: Build Error
+<<<<<<< HEAD
 about: Create a detailed report about an error encountered during the X4trade Core build process.
+=======
+about: Create a detailed report about an error encountered during the X4Trade Core build process.
+>>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
 
 ---
 

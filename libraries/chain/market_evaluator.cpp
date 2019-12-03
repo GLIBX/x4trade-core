@@ -32,9 +32,7 @@
 #include <graphene/chain/hardfork.hpp>
 #include <graphene/chain/is_authorized_asset.hpp>
 
-#include <graphene/chain/protocol/market.hpp>
-
-#include <fc/uint128.hpp>
+#include <graphene/protocol/market.hpp>
 
 namespace graphene { namespace chain {
 void_result limit_order_create_evaluator::do_evaluate(const limit_order_create_operation& op)
@@ -48,19 +46,32 @@ void_result limit_order_create_evaluator::do_evaluate(const limit_order_create_o
    _receive_asset = &op.min_to_receive.asset_id(d);
 
    if( _sell_asset->options.whitelist_markets.size() )
-      FC_ASSERT( _sell_asset->options.whitelist_markets.find(_receive_asset->id) 
-            != _sell_asset->options.whitelist_markets.end(),
-            "This market has not been whitelisted." );
+   {
+      GRAPHENE_ASSERT( _sell_asset->options.whitelist_markets.find(_receive_asset->id)
+                          != _sell_asset->options.whitelist_markets.end(),
+                       limit_order_create_market_not_whitelisted,
+                       "This market has not been whitelisted by the selling asset", );
+   }
    if( _sell_asset->options.blacklist_markets.size() )
-      FC_ASSERT( _sell_asset->options.blacklist_markets.find(_receive_asset->id) 
-            == _sell_asset->options.blacklist_markets.end(),
-            "This market has been blacklisted." );
+   {
+      GRAPHENE_ASSERT( _sell_asset->options.blacklist_markets.find(_receive_asset->id)
+                          == _sell_asset->options.blacklist_markets.end(),
+                       limit_order_create_market_blacklisted,
+                       "This market has been blacklisted by the selling asset", );
+   }
 
-   FC_ASSERT( is_authorized_asset( d, *_seller, *_sell_asset ) );
-   FC_ASSERT( is_authorized_asset( d, *_seller, *_receive_asset ) );
+   GRAPHENE_ASSERT( is_authorized_asset( d, *_seller, *_sell_asset ),
+                    limit_order_create_selling_asset_unauthorized,
+                    "The account is not allowed to transact the selling asset", );
 
-   FC_ASSERT( d.get_balance( *_seller, *_sell_asset ) >= op.amount_to_sell, "insufficient balance",
-              ("balance",d.get_balance(*_seller,*_sell_asset))("amount_to_sell",op.amount_to_sell) );
+   GRAPHENE_ASSERT( is_authorized_asset( d, *_seller, *_receive_asset ),
+                    limit_order_create_receiving_asset_unauthorized,
+                    "The account is not allowed to transact the receiving asset", );
+
+   GRAPHENE_ASSERT( d.get_balance( *_seller, *_sell_asset ) >= op.amount_to_sell,
+                    limit_order_create_insufficient_balance,
+                    "insufficient balance",
+                    ("balance",d.get_balance(*_seller,*_sell_asset))("amount_to_sell",op.amount_to_sell) );
 
    return void_result();
 } FC_CAPTURE_AND_RETHROW( (op) ) }
@@ -95,13 +106,12 @@ void limit_order_create_evaluator::pay_fee()
 
 object_id_type limit_order_create_evaluator::do_apply(const limit_order_create_operation& op)
 { try {
-   const auto& seller_stats = _seller->statistics(db());
-   db().modify(seller_stats, [&](account_statistics_object& bal) {
-         if( op.amount_to_sell.asset_id == asset_id_type() )
-         {
-            bal.total_core_in_orders += op.amount_to_sell.amount;
-         }
-   });
+   if( op.amount_to_sell.asset_id == asset_id_type() )
+   {
+      db().modify( _seller->statistics(db()), [&op](account_statistics_object& bal) {
+         bal.total_core_in_orders += op.amount_to_sell.amount;
+      });
+   }
 
    db().adjust_balance(op.seller, -op.amount_to_sell);
 
@@ -120,7 +130,10 @@ object_id_type limit_order_create_evaluator::do_apply(const limit_order_create_o
    else
       filled = db().apply_order( new_order_object );
 
-   FC_ASSERT( !op.fill_or_kill || filled );
+   GRAPHENE_ASSERT( !op.fill_or_kill || filled,
+                    limit_order_create_kill_unfilled,
+                    "Killing limit order ${op} due to unable to fill",
+                    ("op",op) );
 
    return order_id;
 } FC_CAPTURE_AND_RETHROW( (op) ) }
@@ -129,8 +142,17 @@ void_result limit_order_cancel_evaluator::do_evaluate(const limit_order_cancel_o
 { try {
    database& d = db();
 
-   _order = &o.order(d);
-   FC_ASSERT( _order->seller == o.fee_paying_account );
+   _order = d.find( o.order );
+
+   GRAPHENE_ASSERT( _order != nullptr,
+                    limit_order_cancel_nonexist_order,
+                    "Limit order ${oid} does not exist",
+                    ("oid", o.order) );
+
+   GRAPHENE_ASSERT( _order->seller == o.fee_paying_account,
+                    limit_order_cancel_owner_mismatch,
+                    "Limit order ${oid} is owned by someone else",
+                    ("oid", o.order) );
 
    return void_result();
 } FC_CAPTURE_AND_RETHROW( (o) ) }
@@ -161,11 +183,6 @@ void_result call_order_update_evaluator::do_evaluate(const call_order_update_ope
    database& d = db();
 
    auto next_maintenance_time = d.get_dynamic_global_properties().next_maintenance_time;
-
-   // TODO: remove this check and the assertion after hf_834
-   if( next_maintenance_time <= HARDFORK_CORE_834_TIME )
-      FC_ASSERT( !o.extensions.value.target_collateral_ratio.valid(),
-                 "Can not set target_collateral_ratio in call_order_update_operation before hardfork 834." );
 
    _paying_account = &o.funding_account(d);
    _debt_asset     = &o.delta_debt.asset_id(d);
@@ -331,7 +348,7 @@ object_id_type call_order_update_evaluator::do_apply(const call_order_update_ope
          call_obj = d.find(call_order_id);
          // we know no black swan event has occurred
          FC_ASSERT( call_obj, "no margin call was executed and yet the call object was deleted" );
-         if( d.head_block_time() <= HARDFORK_CORE_583_TIME ) // TODO remove after hard fork core-583
+         if( d.head_block_time() <= HARDFORK_CORE_583_TIME )
          {
             // We didn't fill any call orders.  This may be because we
             // aren't in margin call territory, or it may be because there

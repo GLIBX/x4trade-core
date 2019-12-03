@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Defines X4trade library target.
 project( X4trade )
 cmake_minimum_required( VERSION 2.8.12 )
@@ -6,8 +7,28 @@ set( BLOCKCHAIN_NAME "X4trade" )
 
 set( CLI_CLIENT_EXECUTABLE_NAME graphene_client )
 set( GUI_CLIENT_EXECUTABLE_NAME X4trade )
+=======
+# Defines X4Trade library target.
+cmake_minimum_required( VERSION 3.2 FATAL_ERROR )
+project( X4Trade LANGUAGES CXX C)
+
+set( BLOCKCHAIN_NAME "X4Trade" )
+
+set( CLI_CLIENT_EXECUTABLE_NAME graphene_client )
+set( GUI_CLIENT_EXECUTABLE_NAME X4Trade )
+>>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
 set( CUSTOM_URL_SCHEME "gcs" )
 set( INSTALLER_APP_ID "68ad7005-8eee-49c9-95ce-9eed97e5b347" )
+
+set( CMAKE_CXX_STANDARD 14 )
+set( CMAKE_CXX_STANDARD_REQUIRED ON )
+
+if( "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
+    "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" )
+  set( CMAKE_CXX_EXTENSIONS ON ) # for __int128 support
+else()
+  set( CMAKE_CXX_EXTENSIONS OFF )
+endif()
 
 # http://stackoverflow.com/a/18369825
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
@@ -22,11 +43,95 @@ endif()
 
 list( APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules" )
 
+<<<<<<< HEAD
 set(CMAKE_EXPORT_COMPILE_COMMANDS "ON")
 set(GRAPHENE_EGENESIS_JSON "${CMAKE_CURRENT_SOURCE_DIR}/libraries/egenesis/genesis.json" )
+=======
+include(CheckCCompilerFlag)
+include(Utils)
 
-#set (ENABLE_INSTALLER 1)
-#set (USE_PCH 1)
+# function to help with cUrl
+macro(FIND_CURL)
+   if (NOT WIN32 AND NOT APPLE AND CURL_STATICLIB)
+      set (OLD_SUFFIXES ${CMAKE_FIND_LIBRARY_SUFFIXES})
+      set (CMAKE_FIND_LIBRARY_SUFFIXES .a)
+      find_package(CURL REQUIRED)
+      list(APPEND CURL_LIBRARIES ssl crypto)
+      set (CMAKE_FIND_LIBRARY_SUFFIXES ${OLD_SUFFIXES})
+   else (NOT WIN32 AND NOT APPLE AND CURL_STATICLIB)
+      find_package(CURL REQUIRED)
+   endif (NOT WIN32 AND NOT APPLE AND CURL_STATICLIB)
+endmacro()
+
+# Fortify source
+if (CMAKE_COMPILER_IS_GNUCXX)
+	if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+		message ("-- Setting optimizations for clang++")
+		set(CMAKE_CXX_FLAGS_RELEASE "-D_FORTIFY_SOURCE=2 -O3 -DNDEBUG=1")
+		set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-D_FORTIFY_SOURCE=2 -O3 -DNDEBUG=1 -g")
+
+		# check and add data execution prevention
+		message ("-- Enabling data execution prevention")
+		add_linker_flag("-fsanitize=safe-stack")
+
+		# check and add Stack-based buffer overrun detection
+		set(CMAKE_REQUIRED_FLAGS "-fstack-protector")
+		check_c_compiler_flag("" HAVE_STACKPROTECTOR)
+		if(HAVE_STACKPROTECTOR)
+			message ("-- Enabling stack-based buffer overrun detection")
+			add_flag_append(CMAKE_C_FLAGS "-fstack-protector")
+			add_flag_append(CMAKE_CXX_FLAGS "-fstack-protector")
+		endif()
+	else ()
+		message ("-- Setting optimizations for g++")
+		set(CMAKE_CXX_FLAGS_RELEASE "-D_FORTIFY_SOURCE=2 -O3 -DNDEBUG=1")
+		set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-D_FORTIFY_SOURCE=2 -O3 -DNDEBUG=1 -g")
+
+		# check and add data execution prevention
+		set(CMAKE_REQUIRED_FLAGS "-Wl,-znoexecstack")
+		check_c_compiler_flag("" HAVE_NOEXECSTACK)
+		if(HAVE_NOEXECSTACK)
+			message ("-- Enabling data execution prevention")
+			add_linker_flag("-znoexecstack")
+		endif()
+
+		# check and add Stack-based buffer overrun detection
+		set(CMAKE_REQUIRED_FLAGS "-fstack-protector-strong")
+		check_c_compiler_flag("" HAVE_STACKPROTECTOR)
+		if(HAVE_STACKPROTECTOR)
+			message ("-- Enabling stack-based buffer overrun detection")
+			add_flag_append(CMAKE_C_FLAGS "-fstack-protector-strong")
+			add_flag_append(CMAKE_CXX_FLAGS "-fstack-protector-strong")
+		endif()
+
+	endif ()
+endif ()
+
+# check for Data relocation and Protection (RELRO)
+set(CMAKE_REQUIRED_FLAGS "-Wl,-zrelro,-znow")
+check_c_compiler_flag("" HAVE_RELROFULL)
+if(HAVE_RELROFULL)
+	message ("-- Enabling full data relocation and protection")
+	add_linker_flag("-zrelro")
+	add_linker_flag("-znow")
+else()
+	#if full relro is not available, try partial relro
+	set(CMAKE_REQUIRED_FLAGS "-Wl,-zrelro")
+	check_c_compiler_flag("" HAVE_RELROPARTIAL)
+	if(HAVE_RELROPARTIAL)
+		message ("-- Enabling partial data relocation and protection")
+		add_linker_flag("-zrelro")
+	endif()
+endif()
+
+# position independent executetable (PIE)
+# position independent code (PIC)
+add_definitions (-fPIC)
+>>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS "ON")
+set( GRAPHENE_EGENESIS_JSON "${CMAKE_CURRENT_SOURCE_DIR}/libraries/egenesis/genesis.json"
+     CACHE STRING "Path to embedded genesis file" )
 
 if (USE_PCH)
   include (cotire)
@@ -51,12 +156,21 @@ LIST(APPEND BOOST_COMPONENTS thread
                              chrono
                              unit_test_framework
                              context)
+# boost::endian is also required, but FindBoost can't handle header-only libs
 SET( Boost_USE_STATIC_LIBS ON CACHE STRING "ON or OFF" )
 
 IF( WIN32 )
   SET(BOOST_ROOT $ENV{BOOST_ROOT})
   set(Boost_USE_MULTITHREADED ON)
   set(BOOST_ALL_DYN_LINK OFF) # force dynamic linking for all libraries
+ELSE( WIN32 )
+   IF( APPLE )
+      set( CMAKE_THREAD_LIBS_INIT "-lpthread" )
+      set( CMAKE_HAVE_THREADS_LIBRARY 1 )
+      set( CMAKE_USE_WIN32_THREADS_INIT 0 )
+      set( CMAKE_USE_PTHREADS_INIT 1 )
+      set( THREADS_PREFER_PTHREAD_FLAG ON )
+   ENDIF( APPLE )
 ENDIF(WIN32)
 
 FIND_PACKAGE(Boost 1.57 REQUIRED COMPONENTS ${BOOST_COMPONENTS})
@@ -70,7 +184,11 @@ ENDIF()
 
 if( WIN32 )
 
+<<<<<<< HEAD
     message( STATUS "Configuring X4trade on WIN32")
+=======
+    message( STATUS "Configuring X4Trade on WIN32")
+>>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
     set( DB_VERSION 60 )
     set( BDB_STATIC_LIBS 1 )
 
@@ -80,6 +198,7 @@ if( WIN32 )
     set(CRYPTO_LIB)
 
     if( MSVC )
+	add_definitions(-DWIN32_LEAN_AND_MEAN)
         #looks like this flag can have different default on some machines.
         SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /SAFESEH:NO")
         SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SAFESEH:NO")
@@ -107,12 +226,21 @@ else( WIN32 ) # Apple AND Linux
 
     if( APPLE )
         # Apple Specific Options Here
+<<<<<<< HEAD
         message( STATUS "Configuring X4trade on OS X" )
         set( CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -std=c++11 -stdlib=libc++ -Wall" )
     else( APPLE )
         # Linux Specific Options Here
         message( STATUS "Configuring X4trade on Linux" )
         set( CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -std=c++11 -Wall" )
+=======
+        message( STATUS "Configuring X4Trade on OS X" )
+        set( CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -stdlib=libc++ -Wall" )
+    else( APPLE )
+        # Linux Specific Options Here
+        message( STATUS "Configuring X4Trade on Linux" )
+        set( CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -Wall" )
+>>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
         if(USE_PROFILER)
             set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pg" )
         endif( USE_PROFILER )
@@ -148,7 +276,11 @@ else( WIN32 ) # Apple AND Linux
 
 endif( WIN32 )
 
+<<<<<<< HEAD
 set(ENABLE_COVERAGE_TESTING FALSE CACHE BOOL "Build X4trade for code coverage analysis")
+=======
+set(ENABLE_COVERAGE_TESTING FALSE CACHE BOOL "Build X4Trade for code coverage analysis")
+>>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
 
 if(ENABLE_COVERAGE_TESTING)
     SET(CMAKE_CXX_FLAGS "--coverage ${CMAKE_CXX_FLAGS}")
@@ -178,6 +310,7 @@ set(CPACK_PACKAGE_VERSION_MAJOR "${VERSION_MAJOR}")
 set(CPACK_PACKAGE_VERSION_MINOR "${VERSION_MINOR}")
 set(CPACK_PACKAGE_VERSION_PATCH "${VERSION_PATCH}")
 set(CPACK_PACKAGE_VERSION "${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}")
+<<<<<<< HEAD
 set(CPACK_PACKAGE_DESCRIPTION "A client for the X4trade network")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A client for the X4trade network")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.md")
@@ -190,6 +323,20 @@ if(WIN32)
  set(CPACK_NSIS_PACKAGE_NAME "X4trade v${CPACK_PACKAGE_VERSION}")
  set(CPACK_NSIS_DISPLAY_NAME "${CPACK_NSIS_PACKAGE_NAME}")
  set(CPACK_NSIS_DEFINES "  !define MUI_STARTMENUPAGE_DEFAULTFOLDER \\\"X4trade\\\"")
+=======
+set(CPACK_PACKAGE_DESCRIPTION "A client for the X4Trade network")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A client for the X4Trade network")
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.md")
+set(CPACK_PACKAGE_INSTALL_DIRECTORY "X4Trade ${CPACK_PACKAGE_VERSION}")
+
+if(WIN32)
+ SET(CPACK_GENERATOR "ZIP;NSIS")
+ set(CPACK_PACKAGE_NAME "X4Trade") # override above
+ set(CPACK_NSIS_EXECUTABLES_DIRECTORY .)
+ set(CPACK_NSIS_PACKAGE_NAME "X4Trade v${CPACK_PACKAGE_VERSION}")
+ set(CPACK_NSIS_DISPLAY_NAME "${CPACK_NSIS_PACKAGE_NAME}")
+ set(CPACK_NSIS_DEFINES "  !define MUI_STARTMENUPAGE_DEFAULTFOLDER \\\"X4Trade\\\"")
+>>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
  # it seems like windows zip files usually don't have a single directory inside them, unix tgz frequently do
  SET(CPACK_INCLUDE_TOPLEVEL_DIRECTORY 0)
 

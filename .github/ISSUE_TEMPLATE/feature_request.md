@@ -1,6 +1,10 @@
 ---
 name: Feature Request
+<<<<<<< HEAD
 about: Suggest an idea for the X4trade Core Team to evaluate and prioritize for development.
+=======
+about: Suggest an idea for the X4Trade Core Team to evaluate and prioritize for development.
+>>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
 
 ---
 
@@ -19,7 +23,11 @@ As a `<persona>` I want `<some functionality>` so that `<some benefit is realize
 At minimum, please define the `<who>`, `<what>` and `<why>` for your feature request. The `<who>` may be the system software, a component thereof, the end user, etc.; please be specific describing the context. The `<what>` details the solution your feature will provide; please describe the process flow for the functionality. The `<why>` details the benefits the feature will deliver; consider referencing alternative implementations for context.
 
 **Impacts**
+<<<<<<< HEAD
 Describe which portion(s) of X4trade Core may be impacted by your request. Please tick at least one box.
+=======
+Describe which portion(s) of X4Trade Core may be impacted by your request. Please tick at least one box.
+>>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
 - [ ] API (the application programming interface)
 - [ ] Build (the build process or something prior to compiled code)
 - [ ] CLI (the command line wallet)
