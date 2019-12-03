@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Defines X4trade library target.
 project( X4trade )
 cmake_minimum_required( VERSION 2.8.12 )
@@ -16,7 +16,7 @@ set( BLOCKCHAIN_NAME "X4Trade" )
 
 set( CLI_CLIENT_EXECUTABLE_NAME graphene_client )
 set( GUI_CLIENT_EXECUTABLE_NAME X4Trade )
->>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
+
 set( CUSTOM_URL_SCHEME "gcs" )
 set( INSTALLER_APP_ID "68ad7005-8eee-49c9-95ce-9eed97e5b347" )
 
@@ -43,7 +43,7 @@ endif()
 
 list( APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules" )
 
-<<<<<<< HEAD
+
 set(CMAKE_EXPORT_COMPILE_COMMANDS "ON")
 set(GRAPHENE_EGENESIS_JSON "${CMAKE_CURRENT_SOURCE_DIR}/libraries/egenesis/genesis.json" )
 =======
@@ -127,7 +127,7 @@ endif()
 # position independent executetable (PIE)
 # position independent code (PIC)
 add_definitions (-fPIC)
->>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
+
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS "ON")
 set( GRAPHENE_EGENESIS_JSON "${CMAKE_CURRENT_SOURCE_DIR}/libraries/egenesis/genesis.json"
@@ -184,11 +184,11 @@ ENDIF()
 
 if( WIN32 )
 
-<<<<<<< HEAD
+
     message( STATUS "Configuring X4trade on WIN32")
 =======
     message( STATUS "Configuring X4Trade on WIN32")
->>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
+
     set( DB_VERSION 60 )
     set( BDB_STATIC_LIBS 1 )
 
@@ -226,7 +226,7 @@ else( WIN32 ) # Apple AND Linux
 
     if( APPLE )
         # Apple Specific Options Here
-<<<<<<< HEAD
+
         message( STATUS "Configuring X4trade on OS X" )
         set( CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -std=c++11 -stdlib=libc++ -Wall" )
     else( APPLE )
@@ -240,7 +240,7 @@ else( WIN32 ) # Apple AND Linux
         # Linux Specific Options Here
         message( STATUS "Configuring X4Trade on Linux" )
         set( CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -Wall" )
->>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
+
         if(USE_PROFILER)
             set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pg" )
         endif( USE_PROFILER )
@@ -276,11 +276,11 @@ else( WIN32 ) # Apple AND Linux
 
 endif( WIN32 )
 
-<<<<<<< HEAD
+
 set(ENABLE_COVERAGE_TESTING FALSE CACHE BOOL "Build X4trade for code coverage analysis")
 =======
 set(ENABLE_COVERAGE_TESTING FALSE CACHE BOOL "Build X4Trade for code coverage analysis")
->>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
+
 
 if(ENABLE_COVERAGE_TESTING)
     SET(CMAKE_CXX_FLAGS "--coverage ${CMAKE_CXX_FLAGS}")
@@ -310,7 +310,7 @@ set(CPACK_PACKAGE_VERSION_MAJOR "${VERSION_MAJOR}")
 set(CPACK_PACKAGE_VERSION_MINOR "${VERSION_MINOR}")
 set(CPACK_PACKAGE_VERSION_PATCH "${VERSION_PATCH}")
 set(CPACK_PACKAGE_VERSION "${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}")
-<<<<<<< HEAD
+
 set(CPACK_PACKAGE_DESCRIPTION "A client for the X4trade network")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A client for the X4trade network")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.md")
@@ -336,7 +336,7 @@ if(WIN32)
  set(CPACK_NSIS_PACKAGE_NAME "X4Trade v${CPACK_PACKAGE_VERSION}")
  set(CPACK_NSIS_DISPLAY_NAME "${CPACK_NSIS_PACKAGE_NAME}")
  set(CPACK_NSIS_DEFINES "  !define MUI_STARTMENUPAGE_DEFAULTFOLDER \\\"X4Trade\\\"")
->>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
+
  # it seems like windows zip files usually don't have a single directory inside them, unix tgz frequently do
  SET(CPACK_INCLUDE_TOPLEVEL_DIRECTORY 0)
 
