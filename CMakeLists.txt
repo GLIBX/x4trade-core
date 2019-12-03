@@ -7,7 +7,7 @@ set( BLOCKCHAIN_NAME "X4trade" )
 
 set( CLI_CLIENT_EXECUTABLE_NAME graphene_client )
 set( GUI_CLIENT_EXECUTABLE_NAME X4trade )
-=======
+
 # Defines X4Trade library target.
 cmake_minimum_required( VERSION 3.2 FATAL_ERROR )
 project( X4Trade LANGUAGES CXX C)
@@ -46,7 +46,7 @@ list( APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules" )
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS "ON")
 set(GRAPHENE_EGENESIS_JSON "${CMAKE_CURRENT_SOURCE_DIR}/libraries/egenesis/genesis.json" )
-=======
+
 include(CheckCCompilerFlag)
 include(Utils)
 
@@ -186,7 +186,7 @@ if( WIN32 )
 
 
     message( STATUS "Configuring X4trade on WIN32")
-=======
+
     message( STATUS "Configuring X4Trade on WIN32")
 
     set( DB_VERSION 60 )
@@ -233,7 +233,7 @@ else( WIN32 ) # Apple AND Linux
         # Linux Specific Options Here
         message( STATUS "Configuring X4trade on Linux" )
         set( CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -std=c++11 -Wall" )
-=======
+
         message( STATUS "Configuring X4Trade on OS X" )
         set( CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -stdlib=libc++ -Wall" )
     else( APPLE )
@@ -278,7 +278,7 @@ endif( WIN32 )
 
 
 set(ENABLE_COVERAGE_TESTING FALSE CACHE BOOL "Build X4trade for code coverage analysis")
-=======
+
 set(ENABLE_COVERAGE_TESTING FALSE CACHE BOOL "Build X4Trade for code coverage analysis")
 
 
@@ -323,7 +323,7 @@ if(WIN32)
  set(CPACK_NSIS_PACKAGE_NAME "X4trade v${CPACK_PACKAGE_VERSION}")
  set(CPACK_NSIS_DISPLAY_NAME "${CPACK_NSIS_PACKAGE_NAME}")
  set(CPACK_NSIS_DEFINES "  !define MUI_STARTMENUPAGE_DEFAULTFOLDER \\\"X4trade\\\"")
-=======
+
 set(CPACK_PACKAGE_DESCRIPTION "A client for the X4Trade network")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A client for the X4Trade network")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.md")
