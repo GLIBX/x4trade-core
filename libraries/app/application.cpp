@@ -165,17 +165,7 @@ void application_impl::reset_p2p_node(const fc::path& data_dir)
    {
       // x4trade seednodes
       vector<string> seeds = {
-<<<<<<< HEAD
-         "node-tokyo.x4trade.org:11010",
-         "node-tokyo.x4trade.org:11015",
-         "ca-mtl-node.x4trade.org:11011",
-         "node-asia-east.x4trade.org:11015",
-         "node-euro-west.x4trade.org:11010",
-
-         
-=======
          #include "../egenesis/seed-nodes.txt"
->>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
       };
       for( const string& endpoint_string : seeds )
       {
