@@ -1858,10 +1858,6 @@ BOOST_FIXTURE_TEST_CASE( parent_owner_test, database_fixture )
    }
 }
 
-<<<<<<< HEAD
-/// This test case reproduces https://github.com/x4trade-org/x4trade-core/issues/944
-///                       and https://github.com/x4trade-org/x4trade-core/issues/580
-=======
 BOOST_FIXTURE_TEST_CASE( owner_delegation_test, database_fixture )
 { try {
    ACTORS( (alice)(bob) );
@@ -1902,7 +1898,6 @@ BOOST_FIXTURE_TEST_CASE( owner_delegation_test, database_fixture )
 
 /// This test case reproduces https://github.com/bitshares/bitshares-core/issues/944
 ///                       and https://github.com/bitshares/bitshares-core/issues/580
->>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
 BOOST_FIXTURE_TEST_CASE( missing_owner_auth_test, database_fixture )
 {
    try

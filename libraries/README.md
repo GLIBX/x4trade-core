@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-# X4trade Libraries
-=======
 # X4Trade Libraries
->>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
 
 The libraries are the core of the project and defines everything where applications can build on top.
 

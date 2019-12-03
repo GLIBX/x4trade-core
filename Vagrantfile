@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-# Configures Ubuntu 14.04 VM to be used with X4trade 2.0 (Graphene)
-=======
 # Configures Ubuntu 14.04 VM to be used with X4Trade 2.0 (Graphene)
->>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
 # Downloads and builds all necessary software to run witness node and web GUI
 # Use with Vagrant (http://docs.vagrantup.com/v2/getting-started/index.html)
 # or just execute the shell script below.

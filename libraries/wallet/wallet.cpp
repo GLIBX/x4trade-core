@@ -1620,19 +1620,7 @@ public:
       committee_member_create_operation committee_member_create_op;
       committee_member_create_op.committee_member_account = get_account_id(owner_account);
       committee_member_create_op.url = url;
-<<<<<<< HEAD
-
-      /*
-       * Compatibility issue
-       * Current Date: 2018-09-28 More info: https://github.com/x4trade-org/x4trade-core/issues/1307
-       * Todo: remove the next 2 lines and change always_id to name in remote call after next hardfork
-      */
-      auto account = get_account(owner_account);
-      auto always_id = account_id_to_string(account.id);
-      if (_remote_db->get_committee_member_by_account(always_id))
-=======
       if (_remote_db->get_committee_member_by_account(owner_account))
->>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
          FC_THROW("Account ${owner_account} is already a committee_member", ("owner_account", owner_account));
 
       signed_transaction tx;
@@ -1983,20 +1971,8 @@ public:
          result.emplace_back( get_object(*vbid), now );
          return result;
       }
-<<<<<<< HEAD
-      /*
-       * Compatibility issue
-       * Current Date: 2018-09-28 More info: https://github.com/x4trade-org/x4trade-core/issues/1307
-       * Todo: remove the next 2 lines and change always_id to name in remote call after next hardfork
-      */
-      auto account = get_account(account_name);
-      auto always_id = account_id_to_string(account.id);
-
-      vector< vesting_balance_object > vbos = _remote_db->get_vesting_balances( always_id );
-=======
 
       vector< vesting_balance_object > vbos = _remote_db->get_vesting_balances( account_name );
->>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
       if( vbos.size() == 0 )
          return result;
 
@@ -2044,20 +2020,8 @@ public:
                                         bool broadcast /* = false */)
    { try {
       account_object voting_account_object = get_account(voting_account);
-<<<<<<< HEAD
-
-      /*
-       * Compatibility issue
-       * Current Date: 2018-09-28 More info: https://github.com/x4trade-org/x4trade-core/issues/1307
-       * Todo: remove the next 2 lines and change always_id to name in remote call after next hardfork
-       */
-      auto account = get_account(committee_member);
-      auto always_id = account_id_to_string(account.id);
-      fc::optional<committee_member_object> committee_member_obj = _remote_db->get_committee_member_by_account(always_id);
-=======
       fc::optional<committee_member_object> committee_member_obj =
             _remote_db->get_committee_member_by_account(committee_member);
->>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
       if (!committee_member_obj)
          FC_THROW("Account ${committee_member} is not registered as a committee_member",
                   ("committee_member", committee_member));
@@ -2094,18 +2058,7 @@ public:
    { try {
       account_object voting_account_object = get_account(voting_account);
 
-<<<<<<< HEAD
-      /*
-       * Compatibility issue
-       * Current Date: 2018-09-28 More info: https://github.com/x4trade-org/x4trade-core/issues/1307
-       * Todo: remove the next 2 lines and change always_id to name in remote call after next hardfork
-       */
-      auto account = get_account(witness);
-      auto always_id = account_id_to_string(account.id);
-      fc::optional<witness_object> witness_obj = _remote_db->get_witness_by_account(always_id);
-=======
       fc::optional<witness_object> witness_obj = _remote_db->get_witness_by_account(witness);
->>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
       if (!witness_obj)
          FC_THROW("Account ${witness} is not registered as a witness", ("witness", witness));
       if (approve)
@@ -3405,19 +3358,7 @@ map<string,account_id_type> wallet_api::list_accounts(const string& lowerbound, 
 
 vector<asset> wallet_api::list_account_balances(const string& id)
 {
-<<<<<<< HEAD
-   /*
-    * Compatibility issue
-    * Current Date: 2018-09-13 More info: https://github.com/x4trade-org/x4trade-core/issues/1307
-    * Todo: remove the next 2 lines and change always_id to id in remote call after next hardfork
-    */
-   auto account = get_account(id);
-   auto always_id = my->account_id_to_string(account.id);
-
-   return my->_remote_db->get_account_balances(always_id, flat_set<asset_id_type>());
-=======
    return my->_remote_db->get_account_balances(id, flat_set<asset_id_type>());
->>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
 }
 
 vector<extended_asset_object> wallet_api::list_assets(const string& lowerbound, uint32_t limit)const
@@ -3507,17 +3448,6 @@ vector<operation_detail> wallet_api::get_account_history(string name, int limit)
 {
    vector<operation_detail> result;
 
-<<<<<<< HEAD
-   /*
-    * Compatibility issue
-    * Current Date: 2018-09-14 More info: https://github.com/x4trade-org/x4trade-core/issues/1307
-    * Todo: remove the next 2 lines and change always_id to name in remote call after next hardfork
-    */
-   auto account = get_account(name);
-   auto always_id = my->account_id_to_string(account.id);
-
-=======
->>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
    while( limit > 0 )
    {
       bool skip_first_row = false;
@@ -3582,16 +3512,6 @@ vector<operation_detail> wallet_api::get_relative_account_history(
    const account_object& account = my->get_account(account_id);
    const account_statistics_object& stats = my->get_object(account.statistics);
 
-<<<<<<< HEAD
-   /*
-    * Compatibility issue
-    * Current Date: 2018-09-14 More info: https://github.com/x4trade-org/x4trade-core/issues/1307
-    * Todo: remove the next line and change always_id to name in remote call after next hardfork
-    */
-   auto always_id = my->account_id_to_string(account_id);
-
-=======
->>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
    if(start == 0)
        start = stats.total_ops;
    else
@@ -3630,16 +3550,6 @@ account_history_operation_detail wallet_api::get_account_history_by_operations(
     const auto& account = my->get_account(account_id);
     const auto& stats = my->get_object(account.statistics);
 
-<<<<<<< HEAD
-    /*
-     * Compatibility issue
-     * Current Date: 2018-09-14 More info: https://github.com/x4trade-org/x4trade-core/issues/1307
-     * Todo: remove the next line and change always_id to name in remote call after next hardfork
-     */
-     auto always_id = my->account_id_to_string(account_id);
-
-=======
->>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
     // sequence of account_transaction_history_object start with 1
     start = start == 0 ? 1 : start;
 

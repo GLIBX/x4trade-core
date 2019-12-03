@@ -4,11 +4,7 @@
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  *
-<<<<<<< HEAD
- * 1. Any modified source or binaries are used only with the X4trade network.
-=======
  * 1. Any modified source or binaries are used only with the X4Trade network.
->>>>>>> da39941af9950a7aaaa1e48c65d3fbfcade73ddf
  *
  * 2. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
  *
